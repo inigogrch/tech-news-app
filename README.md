@@ -15,6 +15,7 @@ bun dev
 ```
 
 Open [http://localhost:3000/vectorize](http://localhost:3000/vectorize) with your browser to see the result for the RAG application implementation.
+
 Open [http://localhost:3000/agent](http://localhost:3000/agent) with your browser to see the result for the AI SDK implementation.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
