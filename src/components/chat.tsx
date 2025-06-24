@@ -17,6 +17,18 @@ interface MessageWithSources extends Message {
   sources?: ChatSource[];
 }
 
+// Simple function to parse bold markdown
+const parseMarkdown = (text: string) => {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const boldText = part.slice(2, -2);
+      return <strong key={index} className="font-bold">{boldText}</strong>;
+    }
+    return part;
+  });
+};
+
 export default function Chat() {
   const [messages, setMessages] = useState<MessageWithSources[]>([]);
   const [input, setInput] = useState("");
@@ -140,7 +152,7 @@ export default function Chat() {
           <div className="text-center text-muted-foreground mt-8">
             <p>Start a conversation by typing a message below.</p>
             <p className="text-xs mt-2">
-              Ask about vectorization, embeddings, or RAG systems!
+              Ask about the latest news in tech, or anything else!
             </p>
           </div>
         ) : (
@@ -166,9 +178,9 @@ export default function Chat() {
                         : "bg-muted text-muted-foreground"
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap">
-                      {message.content}
-                    </p>
+                    <div className="text-sm whitespace-pre-wrap">
+                      {parseMarkdown(message.content)}
+                    </div>
                     <span className="text-xs opacity-70 mt-1 block">
                       {new Date(
                         message.createdAt || Date.now()
